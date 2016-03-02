@@ -7,6 +7,35 @@
    this.valor = valor;
   }
 
+  function Longitud(valor, tipo)
+  {
+    Medida.call(this, valor, tipo);
+  }
+  Longitud.prototype = new Medida();
+  Longitud.prototype.constructor = Temperatura;
+
+  function Metros(valor)
+  {
+    Longitud.call(this, valor, 'm');
+    this.convPulgadas = function() {
+      return (valor/0.0254);
+    }
+  }
+
+  Metros.prototype = new Longitud();
+  Metros.prototype.constructor = Metros;
+
+  function Pulgadas(valor)
+  {
+    Longitud.call(this, valor, 'p');
+    this.convMetros = function() {
+      return (valor * 0.0254);
+    }
+  }
+
+  Pulgadas.prototype = new Longitud();
+  Pulgadas.prototype.constructor = Pulgadas;
+
   function Temperatura(valor,tipo)
   {
     Medida.call(this, valor, tipo);
@@ -65,12 +94,15 @@
   exports.Celsius = Celsius;
   exports.Farenheit = Farenheit;
   exports.Kelvin = Kelvin;
+  exports.Metros = Metros;
+  exports.Pulgadas = Pulgadas;
 
   exports.convertir = function() {
     var valor     = document.getElementById('convert').value,
         elemento  = document.getElementById('converted'),
         /* Extienda la RegeExp a la especificación. use una XRegExp */
-        regexp    = /^\s*([-+]?\d+(?:\.\d+)?(?:e[+-]?\d+)?)\s*([kfc])\s*(?:to)\s*([kfc])$/i,
+        regexp    = /^\s*([-+]?\d+(?:\.\d+)?(?:e[+-]?\d+)?)\s*((([kfc])\s*(?:to)\s*([kfc]))|(([mp])\s*(?:to)\s*([mp])))$/i,
+
         valor     = valor.match(regexp);
 
     if (valor) {
@@ -103,6 +135,12 @@
           if (tipo2 == 'f')
             elemento.innerHTML = kelvin.convFarenheit().toFixed(2) + " Farenheit";
           break;
+        case 'm':
+          var metro = new Metros(numero);
+          elemento.innerHTML = metro.convPulgadas().toFixed(2) + " Pulgadas";
+        case 'p':
+          var pulgada = new Pulgadas(numero);
+          elemento.innerHTML = pulgada.convMetros().toFixed(2) + " Metros";
         default:
           /* rellene este código */
           elemento.innerHTML = "Error! El uso corecto es por ejemplo: -3.7C.";
