@@ -3,8 +3,8 @@
 
   function Medida(valor,tipo)
   {
-   this.tipo = tipo;
-   this.valor = valor;
+   this.type = tipo;
+   this.value = valor;
   }
 
   function Longitud(valor, tipo)
@@ -101,7 +101,7 @@
     var valor     = document.getElementById('convert').value,
         elemento  = document.getElementById('converted'),
         /* Extienda la RegeExp a la especificación. use una XRegExp */
-        regexp    = /^\s*([-+]?\d+(?:\.\d+)?(?:e[+-]?\d+)?)\s*((([kfc])\s*(?:to)\s*([kfc]))|(([mp])\s*(?:to)\s*([mp])))$/i,
+        regexp    = /^\s*([-+]?\d+(?:\.\d+)?(?:e[+-]?\d+)?)\s*(?:(?:([kfc])\s*(?:to)\s*([kfc]))|(?:([mp])\s*(?:to)\s*([mp])))$/i,
 
         valor     = valor.match(regexp);
 
@@ -138,9 +138,11 @@
         case 'm':
           var metro = new Metros(numero);
           elemento.innerHTML = metro.convPulgadas().toFixed(2) + " Pulgadas";
+          break;
         case 'p':
           var pulgada = new Pulgadas(numero);
           elemento.innerHTML = pulgada.convMetros().toFixed(2) + " Metros";
+          break;
         default:
           /* rellene este código */
           elemento.innerHTML = "Error! El uso corecto es por ejemplo: -3.7C.";
