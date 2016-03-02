@@ -107,7 +107,7 @@
 
     if (valor) {
       var numero = valor[1],
-          tipo1   = valor[2].toLowerCase();
+          tipo1   = valor[2].toLowerCase(),
           tipo2 = valor[3].toLowerCase();
 
       numero = parseFloat(numero);
