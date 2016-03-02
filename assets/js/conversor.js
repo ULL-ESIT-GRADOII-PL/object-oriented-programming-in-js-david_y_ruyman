@@ -64,36 +64,44 @@
   exports.Temperatura = Temperatura;
   exports.Celsius = Celsius;
   exports.Farenheit = Farenheit;
+  exports.Kelvin = Kelvin;
 
   exports.convertir = function() {
     var valor     = document.getElementById('convert').value,
         elemento  = document.getElementById('converted'),
         /* Extienda la RegeExp a la especificación. use una XRegExp */
-        regexp    = /^\s*([-+]?\d+(?:\.\d+)?(?:e[+-]?\d+)?)\s*([a-z,A-Z]+)\s*$/i,
+        regexp    = /^\s*([-+]?\d+(?:\.\d+)?(?:e[+-]?\d+)?)\s*([kfc])\s*(?:to)\s*([kfc])$/i,
         valor     = valor.match(regexp);
 
     if (valor) {
       var numero = valor[1],
-          tipo   = valor[2].toLowerCase();
+          tipo1   = valor[2].toLowerCase();
+          tipo2 = valor[3].toLowerCase();
 
       numero = parseFloat(numero);
-      console.log("Valor: " + numero + ", Tipo: " + tipo);
+      console.log("Valor: " + numero + ", Tipo: " + tipo1);
 
-      switch (tipo) {
+      switch (tipo1) {
         case 'c':
           var celsius = new Celsius(numero);
-          elemento.innerHTML = celsius.convFarenheit().toFixed(2) + " Farenheit";
-          elemento.innerHTML = celsius.convKelvin().toFixed(2) + " Kelvin";
+          if (tipo2 == 'f')
+            elemento.innerHTML = celsius.convFarenheit().toFixed(2) + " Farenheit";
+          if (tipo2 == 'k')
+            elemento.innerHTML = celsius.convKelvin().toFixed(2) + " Kelvin";
           break;
         case 'f':
           var farenheit = new Farenheit(numero);
-          elemento.innerHTML = farenheit.convCelsius().toFixed(2) + " Celsius";
-          elemento.innerHTML = farenheit.convKelvin().toFixed(2) + " Kelvin";
+          if (tipo2 == 'c')
+            elemento.innerHTML = farenheit.convCelsius().toFixed(2) + " Celsius";
+          if (tipo2 == 'k')
+            elemento.innerHTML = farenheit.convKelvin().toFixed(2) + " Kelvin";
           break;
         case 'k':
           var kelvin = new Kelvin(numero);
-          elemento.innerHTML = kelvin.convCelsius().toFixed(2) + " Celsius";
-          elemento.innerHTML = kelvin.convFarenheit().toFixed(2) + " Farenheit";
+          if (tipo2 == 'c')
+            elemento.innerHTML = kelvin.convCelsius().toFixed(2) + " Celsius";
+          if (tipo2 == 'f')
+            elemento.innerHTML = kelvin.convFarenheit().toFixed(2) + " Farenheit";
           break;
         default:
           /* rellene este código */
