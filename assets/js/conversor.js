@@ -82,15 +82,22 @@
       switch (tipo) {
         case 'c':
           var celsius = new Celsius(numero);
-          elemento.innerHTML = celsius.toFarenheit().toFixed(2) + " Farenheit";
+          elemento.innerHTML = celsius.convFarenheit().toFixed(2) + " Farenheit";
+          elemento.innerHTML = celsius.convKelvin().toFixed(2) + " Kelvin";
           break;
         case 'f':
           var farenheit = new Farenheit(numero);
-          elemento.innerHTML = farenheit.toCelsius().toFixed(2) + " Celsius";
+          elemento.innerHTML = farenheit.convCelsius().toFixed(2) + " Celsius";
+          elemento.innerHTML = farenheit.convKelvin().toFixed(2) + " Kelvin";
           break;
-
+        case 'k':
+          var kelvin = new Kelvin(numero);
+          elemento.innerHTML = kelvin.convCelsius().toFixed(2) + " Celsius";
+          elemento.innerHTML = kelvin.convFarenheit().toFixed(2) + " Farenheit";
+          break;
         default:
           /* rellene este código */
+          elemento.innerHTML = "Error! El uso corecto es por ejemplo: -3.7C.";
       }
     }
     else
