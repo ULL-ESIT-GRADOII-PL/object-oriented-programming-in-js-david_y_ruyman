@@ -96,7 +96,7 @@
   exports.Kelvin = Kelvin;
   exports.Metros = Metros;
   exports.Pulgadas = Pulgadas;
-
+  
   exports.convertir = function() {
     var valor     = document.getElementById('convert').value,
         elemento  = document.getElementById('converted');
@@ -109,7 +109,7 @@
                             (?:m(?:e(?:t(?:r(?:o(?:s)?)?)?)?)?)|                           # metros         \n\
                             (?:p(?:u(?:l(?:g(?:a(?:d(?:a(?:s)?)?)?)?)?)?)?)                # pulgadas       \n\
                           ))                                                             # FIN DE TIPO      \n\
-                          ((?:\\s+to\\s+)(?<to> (                                        # TO                \n\
+                          ((?:\\s+to)?\\s+(?<to> (                                        # TO                \n\
                             (?:f(?:a(?:h(?:r(?:e(?:n(?:h(?:e(?:i(?:t)?)?)?)?)?)?)?)?)?)|   # fahrenheit   \n\
                             (?:c(?:e(?:l(?:s(?:i(?:u(?:s)?)?)?)?)?)?)|                     # celsius      \n\
                             (?:k(?:e(?:l(?:v(?:i(?:n)?)?)?)?)?)|                           # kelvin       \n\
@@ -140,6 +140,8 @@
             elemento.innerHTML = celsius.convFahrenheit().toFixed(2) + " Farenheit";
           } else if (to == 'k') {
             elemento.innerHTML = celsius.convKelvin().toFixed(2) + " Kelvin";
+          } else {
+            elemento.innerHTML = "Error! Conversión no permitida";
           }
           break;
         case 'f':
@@ -148,6 +150,8 @@
             elemento.innerHTML = fahrenheit.convCelsius().toFixed(2) + " Celsius";
           } else if (to == 'k') {
             elemento.innerHTML = fahrenheit.convKelvin().toFixed(2) + " Kelvin";
+          } else {
+            elemento.innerHTML = "Error! Conversión no permitida";
           }
           break;
         case 'k':
@@ -156,17 +160,25 @@
             elemento.innerHTML = kelvin.convCelsius().toFixed(2) + " Celsius";
           } else if (to == 'f') {
             elemento.innerHTML = kelvin.convFahrenheit().toFixed(2) + " Farenheit";
+          } else {
+            elemento.innerHTML = "Error! Conversión no permitida";
           }
           break;
         case 'm':
           var metro = new Metros(numero);
-          if (!to || to == 'p')
+          if (!to || to == 'p') {
             elemento.innerHTML = metro.convPulgadas().toFixed(2) + " Pulgadas";
+          } else {
+            elemento.innerHTML = "Error! Conversión no permitida";
+          }
           break;
         case 'p':
           var pulgada = new Pulgadas(numero);
-          if (!to || to == 'm')
+          if (!to || to == 'm') {
             elemento.innerHTML = pulgada.convMetros().toFixed(2) + " Metros";
+          } else {
+            elemento.innerHTML = "Error! Conversión no permitida";
+          }
           break;
         default:
           /* rellene este código */
