@@ -137,11 +137,13 @@
           break;
         case 'm':
           var metro = new Metros(numero);
-          elemento.innerHTML = metro.convPulgadas().toFixed(2) + " Pulgadas";
+          if (tipo2 == 'p')
+            elemento.innerHTML = metro.convPulgadas().toFixed(2) + " Pulgadas";
           break;
         case 'p':
           var pulgada = new Pulgadas(numero);
-          elemento.innerHTML = pulgada.convMetros().toFixed(2) + " Metros";
+          if (tipo2 == 'm')
+            elemento.innerHTML = pulgada.convMetros().toFixed(2) + " Metros";
           break;
         default:
           /* rellene este código */
