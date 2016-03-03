@@ -51,7 +51,7 @@
   {
     Temperatura.call(this,valor,"c");
     /*celsius hereda de temperatura y llama al constructor ponindo por defecto la c en tipo*/
-    this.convFarenheit = function() {
+    this.convFahrenheit = function() {
       return ((valor * 9/5) + 32);
     };
 
@@ -63,7 +63,7 @@
   Celsius.prototype = new Temperatura();
   Celsius.prototype.constructor = Celsius;
 
-  function Farenheit(valor)
+  function Fahrenheit(valor)
   {
     Temperatura.call(this,valor,"f");
     this.convCelsius = function() {
@@ -74,15 +74,15 @@
     };
   }
 
-  Farenheit.prototype = new Temperatura();
-  Farenheit.prototype.constructor = Farenheit;
+  Fahrenheit.prototype = new Temperatura();
+  Fahrenheit.prototype.constructor = Fahrenheit;
 
   function Kelvin(valor) {
     Temperatura.call(this, valor, "k");
     this.convCelsius = function() {
       return(valor - 273.15);
     };
-    this.convFarenheit = function() {
+    this.convFahrenheit = function() {
       return(valor * 9/5 - 459.67);
     };
   }
@@ -92,7 +92,7 @@
 
   exports.Temperatura = Temperatura;
   exports.Celsius = Celsius;
-  exports.Farenheit = Farenheit;
+  exports.Farenheit = Fahrenheit;
   exports.Kelvin = Kelvin;
   exports.Metros = Metros;
   exports.Pulgadas = Pulgadas;
@@ -100,9 +100,6 @@
   exports.convertir = function() {
     var valor     = document.getElementById('convert').value,
         elemento  = document.getElementById('converted');
-        /* Extienda la RegeExp a la especificación. use una XRegExp */
-        //regexp    = /^\s*([-+]?\d+(?:\.\d+)?(?:e[+-]?\d+)?)\s*(?:([kfcmp])\s*(?:to)\s*([kfcmp]))$/i,
-        //valor     = valor.match(regexp);
     var regexp = XRegExp('^\\s*(?<number> ([-+]?\\d+(?:\\.\\d*)?))                        # NUMERO          \n\
                           \\s*(?<exp> (?:e([-+]?\\d+))?)                                  # EXPONENTE       \n\
                           \\s*(?<type> (                                                  # INICIO DEL TIPO \n\
@@ -122,43 +119,53 @@
     var valor = XRegExp.exec(valor, regexp);
     
     if (valor) {
-      var numero = valor[1],
-          tipo1   = valor[2].toLowerCase(),
-          tipo2 = valor[3].toLowerCase();
+      var numero = parseFloat(valor.number),
+          tipo  = valor.type[0].toLowerCase(),
+          to = valor.to;
 
-      numero = parseFloat(numero);
-      console.log("Valor: " + numero + ", Tipo: " + tipo1);
+      to && (to = to[0].toLowerCase());
 
-      switch (tipo1) {
+      // Calculamos exponente si lo hay
+      if (valor.exp) {
+        var exp = parseInt(valor.exp);
+        numero = numero * Math.pow(10, exp);
+      }
+
+      console.log("Valor: " + numero + ", Tipo: " + tipo);
+
+      switch (tipo) {
         case 'c':
           var celsius = new Celsius(numero);
-          if (tipo2 == 'f')
-            elemento.innerHTML = celsius.convFarenheit().toFixed(2) + " Farenheit";
-          if (tipo2 == 'k')
+          if (!to || to == 'f') {
+            elemento.innerHTML = celsius.convFahrenheit().toFixed(2) + " Farenheit";
+          } else if (to == 'k') {
             elemento.innerHTML = celsius.convKelvin().toFixed(2) + " Kelvin";
+          }
           break;
         case 'f':
-          var farenheit = new Farenheit(numero);
-          if (tipo2 == 'c')
-            elemento.innerHTML = farenheit.convCelsius().toFixed(2) + " Celsius";
-          if (tipo2 == 'k')
-            elemento.innerHTML = farenheit.convKelvin().toFixed(2) + " Kelvin";
+          var fahrenheit = new Fahrenheit(numero);
+          if (!to || to == 'c') {
+            elemento.innerHTML = fahrenheit.convCelsius().toFixed(2) + " Celsius";
+          } else if (to == 'k') {
+            elemento.innerHTML = fahrenheit.convKelvin().toFixed(2) + " Kelvin";
+          }
           break;
         case 'k':
           var kelvin = new Kelvin(numero);
-          if (tipo2 == 'c')
+          if (!to || to == 'c') {
             elemento.innerHTML = kelvin.convCelsius().toFixed(2) + " Celsius";
-          if (tipo2 == 'f')
-            elemento.innerHTML = kelvin.convFarenheit().toFixed(2) + " Farenheit";
+          } else if (to == 'f') {
+            elemento.innerHTML = kelvin.convFahrenheit().toFixed(2) + " Farenheit";
+          }
           break;
         case 'm':
           var metro = new Metros(numero);
-          if (tipo2 == 'p')
+          if (!to || to == 'p')
             elemento.innerHTML = metro.convPulgadas().toFixed(2) + " Pulgadas";
           break;
         case 'p':
           var pulgada = new Pulgadas(numero);
-          if (tipo2 == 'm')
+          if (!to || to == 'm')
             elemento.innerHTML = pulgada.convMetros().toFixed(2) + " Metros";
           break;
         default:
