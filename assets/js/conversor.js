@@ -101,7 +101,7 @@
     var valor     = document.getElementById('convert').value,
         elemento  = document.getElementById('converted'),
         /* Extienda la RegeExp a la especificación. use una XRegExp */
-        regexp    = /^\s*([-+]?\d+(?:\.\d+)?(?:e[+-]?\d+)?)\s*((([kfc])\s*(?:to)\s*([kfc]))|(([mp])\s*(?:to)\s*([mp])))$/i,
+        regexp    = /^\s*([-+]?\d+(?:\.\d+)?(?:e[+-]?\d+)?)\s*(?:([kfcmp])\s*(?:to)\s*([kfcmp]))$/i,
 
         valor     = valor.match(regexp);
 
