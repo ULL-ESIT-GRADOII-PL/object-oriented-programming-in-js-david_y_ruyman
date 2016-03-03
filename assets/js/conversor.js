@@ -138,9 +138,11 @@
         case 'm':
           var metro = new Metros(numero);
           elemento.innerHTML = metro.convPulgadas().toFixed(2) + " Pulgadas";
+          break;
         case 'p':
           var pulgada = new Pulgadas(numero);
           elemento.innerHTML = pulgada.convMetros().toFixed(2) + " Metros";
+          break;
         default:
           /* rellene este código */
           elemento.innerHTML = "Error! El uso corecto es por ejemplo: -3.7C.";
