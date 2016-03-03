@@ -99,12 +99,28 @@
 
   exports.convertir = function() {
     var valor     = document.getElementById('convert').value,
-        elemento  = document.getElementById('converted'),
+        elemento  = document.getElementById('converted');
         /* Extienda la RegeExp a la especificación. use una XRegExp */
-        regexp    = /^\s*([-+]?\d+(?:\.\d+)?(?:e[+-]?\d+)?)\s*(?:([kfcmp])\s*(?:to)\s*([kfcmp]))$/i,
-
-        valor     = valor.match(regexp);
-
+        //regexp    = /^\s*([-+]?\d+(?:\.\d+)?(?:e[+-]?\d+)?)\s*(?:([kfcmp])\s*(?:to)\s*([kfcmp]))$/i,
+        //valor     = valor.match(regexp);
+    var regexp = XRegExp('^\\s*(?<number> ([-+]?\\d+(?:\\.\\d*)?))                        # NUMERO          \n\
+                          \\s*(?<exp> (?:e([-+]?\\d+))?)                                  # EXPONENTE       \n\
+                          \\s*(?<type> (                                                  # INICIO DEL TIPO \n\
+                            (?:f(?:a(?:h(?:r(?:e(?:n(?:h(?:e(?:i(?:t)?)?)?)?)?)?)?)?)?)|   # fahrenheit     \n\
+                            (?:c(?:e(?:l(?:s(?:i(?:u(?:s)?)?)?)?)?)?)|                     # celsius        \n\
+                            (?:k(?:e(?:l(?:v(?:i(?:n)?)?)?)?)?)|                           # kelvin         \n\
+                            (?:m(?:e(?:t(?:r(?:o(?:s)?)?)?)?)?)|                           # metros         \n\
+                            (?:p(?:u(?:l(?:g(?:a(?:d(?:a(?:s)?)?)?)?)?)?)?)                # pulgadas       \n\
+                          ))                                                             # FIN DE TIPO      \n\
+                          ((?:\\s+to\\s+)(?<to> (                                        # TO                \n\
+                            (?:f(?:a(?:h(?:r(?:e(?:n(?:h(?:e(?:i(?:t)?)?)?)?)?)?)?)?)?)|   # fahrenheit   \n\
+                            (?:c(?:e(?:l(?:s(?:i(?:u(?:s)?)?)?)?)?)?)|                     # celsius      \n\
+                            (?:k(?:e(?:l(?:v(?:i(?:n)?)?)?)?)?)|                           # kelvin       \n\
+                            (?:m(?:e(?:t(?:r(?:o(?:s)?)?)?)?)?)|                           # metros       \n\
+                            (?:p(?:u(?:l(?:g(?:a(?:d(?:a(?:s)?)?)?)?)?)?)?)                # pulgadas     \n\
+                          )))?\\s*$', 'nxi');
+    var valor = XRegExp.exec(valor, regexp);
+    
     if (valor) {
       var numero = valor[1],
           tipo1   = valor[2].toLowerCase(),
