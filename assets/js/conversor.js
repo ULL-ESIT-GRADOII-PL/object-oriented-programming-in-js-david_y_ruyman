@@ -101,7 +101,7 @@
     var valor     = document.getElementById('convert').value,
         elemento  = document.getElementById('converted');
     var regexp = XRegExp('^\\s*(?<number> ([-+]?\\d+(?:\\.\\d*)?))                        # NUMERO          \n\
-                          \\s*(?<exp> (?:e([-+]?\\d+))?)                                  # EXPONENTE       \n\
+                          \\s*(?:e(?<exp> [-+]?\\d+))?                                    # EXPONENTE       \n\
                           \\s*(?<type> (                                                  # INICIO DEL TIPO \n\
                             (?:f(?:a(?:h(?:r(?:e(?:n(?:h(?:e(?:i(?:t)?)?)?)?)?)?)?)?)?)|   # fahrenheit     \n\
                             (?:c(?:e(?:l(?:s(?:i(?:u(?:s)?)?)?)?)?)?)|                     # celsius        \n\
