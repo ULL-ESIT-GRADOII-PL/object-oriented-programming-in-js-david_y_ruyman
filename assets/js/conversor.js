@@ -100,22 +100,22 @@
   exports.convertir = function() {
     var valor     = document.getElementById('convert').value,
         elemento  = document.getElementById('converted');
-    var regexp = XRegExp('^\\s*(?<number> ([-+]?\\d+(?:\\.\\d*)?))                        # NUMERO          \n\
-                          \\s*(?:e(?<exp> [-+]?\\d+))?                                    # EXPONENTE       \n\
-                          \\s*(?<type> (                                                  # INICIO DEL TIPO \n\
-                            (?:f(?:a(?:h(?:r(?:e(?:n(?:h(?:e(?:i(?:t)?)?)?)?)?)?)?)?)?)|   # fahrenheit     \n\
-                            (?:c(?:e(?:l(?:s(?:i(?:u(?:s)?)?)?)?)?)?)|                     # celsius        \n\
-                            (?:k(?:e(?:l(?:v(?:i(?:n)?)?)?)?)?)|                           # kelvin         \n\
-                            (?:m(?:e(?:t(?:r(?:o(?:s)?)?)?)?)?)|                           # metros         \n\
-                            (?:p(?:u(?:l(?:g(?:a(?:d(?:a(?:s)?)?)?)?)?)?)?)                # pulgadas       \n\
-                          ))                                                             # FIN DE TIPO      \n\
-                          ((?:\\s+to)?\\s+(?<to> (                                        # TO                \n\
-                            (?:f(?:a(?:h(?:r(?:e(?:n(?:h(?:e(?:i(?:t)?)?)?)?)?)?)?)?)?)|   # fahrenheit   \n\
-                            (?:c(?:e(?:l(?:s(?:i(?:u(?:s)?)?)?)?)?)?)|                     # celsius      \n\
-                            (?:k(?:e(?:l(?:v(?:i(?:n)?)?)?)?)?)|                           # kelvin       \n\
-                            (?:m(?:e(?:t(?:r(?:o(?:s)?)?)?)?)?)|                           # metros       \n\
-                            (?:p(?:u(?:l(?:g(?:a(?:d(?:a(?:s)?)?)?)?)?)?)?)                # pulgadas     \n\
-                          )))?\\s*$', 'nxi');
+    var regexp = XRegExp('^\\s*(?<number> [-+]?\\d+(?:.\\d*)?)                            # NUMERO            \n' +
+                          '\\s*(?:e(?<exp> [-+]?\\d+))?                                   # EXPONENTE         \n' +
+                          '\\s*(?<type> (                                                 # INICIO DEL TIPO   \n' +
+                          '(?:f(?:a(?:h(?:r(?:e(?:n(?:h(?:e(?:i(?:t)?)?)?)?)?)?)?)?)?)|     # fahrenheit      \n' +
+                            '(?:c(?:e(?:l(?:s(?:i(?:u(?:s)?)?)?)?)?)?)|                     # celsius         \n' +
+                            '(?:k(?:e(?:l(?:v(?:i(?:n)?)?)?)?)?)|                           # kelvin          \n' +
+                            '(?:m(?:e(?:t(?:r(?:o(?:s)?)?)?)?)?)|                           # metros          \n' +
+                            '(?:p(?:u(?:l(?:g(?:a(?:d(?:a(?:s)?)?)?)?)?)?)?)                # pulgadas        \n' +
+                          '))                                                             # FIN DEL TIPO      \n' +
+                          '((?:\\s+to)?\\s+(?<to> (                                       # TO                \n' +
+                            '(?:f(?:a(?:h(?:r(?:e(?:n(?:h(?:e(?:i(?:t)?)?)?)?)?)?)?)?)?)|   # fahrenheit      \n' +
+                            '(?:c(?:e(?:l(?:s(?:i(?:u(?:s)?)?)?)?)?)?)|                     # celsius         \n' +
+                            '(?:k(?:e(?:l(?:v(?:i(?:n)?)?)?)?)?)|                           # kelvin          \n' +
+                            '(?:m(?:e(?:t(?:r(?:o(?:s)?)?)?)?)?)|                           # metros          \n' +
+                            '(?:p(?:u(?:l(?:g(?:a(?:d(?:a(?:s)?)?)?)?)?)?)?)                # pulgadas        \n' +
+                          ')))?\\s*$', 'xi');
     var valor = XRegExp.exec(valor, regexp);
     
     if (valor) {
@@ -186,7 +186,7 @@
       }
     }
     else
-      elemento.innerHTML = "";
+      elemento.innerHTML = "Error! El uso corecto es por ejemplo: -3.7C.";
   }
 
 })(this);
